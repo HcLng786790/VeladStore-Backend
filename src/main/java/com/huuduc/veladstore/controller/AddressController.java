@@ -50,5 +50,7 @@ public class AddressController {
         this.addressService.deletedById(id);
 
         return ResponseEntity.ok("Deleted success");
+
+
     }
 }

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: veladdb
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=veladstore
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=1234
+    expose:
+      - 3306
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: velad-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=veladdb
+      - DB_USER=user
+      - DB_NAME=veladstore
+      - DB_PORT=3306
+      - DB_PASSWORD=1234
+    depends_on:
+      - mysql
